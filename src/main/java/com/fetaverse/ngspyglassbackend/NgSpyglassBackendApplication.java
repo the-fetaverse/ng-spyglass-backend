@@ -1,0 +1,13 @@
+package com.fetaverse.ngspyglassbackend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class NgSpyglassBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(NgSpyglassBackendApplication.class, args);
+	}
+
+}
