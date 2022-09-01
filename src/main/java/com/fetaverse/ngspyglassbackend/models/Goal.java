@@ -1,16 +1,37 @@
 package com.fetaverse.ngspyglassbackend.models;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "goal")
 public class Goal {
+
     // FIELDS
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int goal_id;
+
+    @Column
     private String name;
+
+    @Column
     private String description;
+
+    @Column
     private Date date_created;
+
+    @Column
     private Date date_target;
+
+    @Column
     private double amount_current;
+
+    @Column
     private double amount_target;
+
+    @Column
     private boolean flag_achieved;
 
     // CONSTRUCTORS
