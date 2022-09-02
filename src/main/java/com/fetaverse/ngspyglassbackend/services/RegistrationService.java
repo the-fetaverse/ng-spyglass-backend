@@ -23,11 +23,10 @@ public class RegistrationService {
      */
     public void register(String username, String password) {
         String userSql = "insert into users values (?, ?, true)";
-        String authzSql = "insert into authorities values (?, 'ROLE_ADMIN')";
+        String authzSql = "insert into authorities values (?, 'ROLE_USER')";
 
         jdbcTemplate.update(userSql, new String[] {username, encoder.encode(password)},
                 new int[] {Types.VARCHAR, Types.VARCHAR});
-
         jdbcTemplate.update(authzSql, new String[] {username}, new int[] {Types.VARCHAR});
     }
 }
