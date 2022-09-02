@@ -33,7 +33,25 @@ public class GoalService {
         );
     }
 
-public ArrayList<Goal> findAll() {
+    public ArrayList<Goal> findAll() {
         return goals;
-}
+    }
+
+    public Goal findById(int id) {
+        for (Goal goal: goals ) {
+            if (goal.getGoal_id() == id) {
+                return goal;
+            }
+        }
+        return null;
+    }
+
+    public Goal deleteById(int id) {
+        Goal goal = findById(id);
+        if (goal==null) return null;
+        if(goals.remove(goal)) {
+            return goal;
+        }
+        return null;
+    }
 }
