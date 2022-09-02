@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "goal")
+@Table(name = "goals")
 public class Goal {
 
-    // FIELDS
+    // FIELDS //
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -18,6 +19,10 @@ public class Goal {
 
     @Column
     private String description;
+
+    @Column
+    @JoinColumn(name = "username")
+    private String username;
 
     @Column
     private Date date_created;
@@ -34,7 +39,7 @@ public class Goal {
     @Column
     private boolean flag_achieved;
 
-    // CONSTRUCTORS
+    // CONSTRUCTORS //
 
     /**
      * Default constructor:
@@ -44,19 +49,21 @@ public class Goal {
 
     /**
      * Full args constructor:
-     * @param goal_id: id
+     * @param goal_id: int
      * @param name: String
      * @param description: String
+     * @param username: String
      * @param date_created: Date
      * @param date_target: Date
      * @param amount_current: double
      * @param amount_target: double
      * @param flag_achieved: boolean
      */
-    public Goal(int goal_id, String name, String description, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
+    public Goal(int goal_id, String name, String description, String username, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
         this.goal_id = goal_id;
         this.name = name;
         this.description = description;
+        this.username = username;
         this.date_created = date_created;
         this.date_target = date_target;
         this.amount_current = amount_current;
@@ -65,18 +72,20 @@ public class Goal {
     }
 
     /**
-     * Custom constructor: all args EXCEPT id:
+     * Custom constructor: all args EXCEPT id
      * @param name: String
      * @param description: String
+     * @param username: String
      * @param date_created: Date
      * @param date_target: Date
      * @param amount_current: double
      * @param amount_target: double
      * @param flag_achieved: boolean
      */
-    public Goal(String name, String description, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
+    public Goal(String name, String description, String username, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
         this.name = name;
         this.description = description;
+        this.username = username;
         this.date_created = date_created;
         this.date_target = date_target;
         this.amount_current = amount_current;
@@ -84,7 +93,8 @@ public class Goal {
         this.flag_achieved = flag_achieved;
     }
 
-    // GETTERS
+
+    // GETTERS //
 
     /**
      * Gets goal id:
@@ -108,6 +118,14 @@ public class Goal {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Gets the username:
+     * @return String username
+     */
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -150,7 +168,7 @@ public class Goal {
         return flag_achieved;
     }
 
-    // SETTERS
+    // SETTERS //
 
     /**
      * Sets goal id:
@@ -174,6 +192,14 @@ public class Goal {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Sets the username:
+     * @param username: String
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -216,7 +242,7 @@ public class Goal {
         this.flag_achieved = flag_achieved;
     }
 
-    // EQUALS and HASHCODE
+    // EQUALS and HASHCODE //
 
     /**
      * Equals based on goal_id since it's a unique value:
@@ -242,10 +268,10 @@ public class Goal {
         return getGoal_id();
     }
 
-    // TO STRING
+    // TO STRING //
 
     /**
-     * To string with full args
+     * ToString method with full args:
      * @return String
      */
     @Override
@@ -254,6 +280,7 @@ public class Goal {
                 "goal_id=" + goal_id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", username='" + username + '\'' +
                 ", date_created=" + date_created +
                 ", date_target=" + date_target +
                 ", amount_current=" + amount_current +
