@@ -46,6 +46,16 @@ public class GoalService {
         return null;
     }
 
+    public Goal saveGoal(Goal goal) {
+        if (goal.getGoal_id() == -1) {
+            goals.add(goal);
+        } else {
+            deleteById(goal.getGoal_id());
+            goals.add(goal);
+        }
+        return goal;
+    }
+
     public Goal deleteById(int id) {
         Goal goal = findById(id);
         if (goal==null) return null;

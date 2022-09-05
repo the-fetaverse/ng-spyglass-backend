@@ -3,6 +3,7 @@ package com.fetaverse.ngspyglassbackend.controllers;
 import com.fetaverse.ngspyglassbackend.models.Goal;
 import com.fetaverse.ngspyglassbackend.services.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +11,20 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/users/{username}")
+@RequestMapping("/users/{username}/goals")
 public class GoalController {
 
     @Autowired
     private GoalService service;
 
-    @GetMapping("/goals")
+    @GetMapping()
     public List<Goal> findAll(@PathVariable String username) {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
     public Goal findById(@PathVariable String username, @PathVariable int id) {
-        return null;
+        return service.findById(id);
     }
 
     @PostMapping
@@ -31,13 +32,14 @@ public class GoalController {
         return null;
     }
 
-    @PutMapping("/goals/{id}")
-    public Goal updateGoal(@PathVariable String username, @PathVariable int id, @RequestBody Goal goal) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Goal> updateGoal(@PathVariable String username, @PathVariable int id, @RequestBody Goal goal) {
         goal.setGoal_id(id);
-        return null;
+        Goal updatedGoal = service.saveGoal(goal);
+        return new ResponseEntity<Goal>(updatedGoal, HttpStatus.OK);
     }
 
-    @DeleteMapping("/goals/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGoal(@PathVariable String username, @PathVariable int id) {
         Goal goal = service.deleteById(id);
         if (goal != null) {
