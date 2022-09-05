@@ -47,7 +47,7 @@ public class GoalService {
     }
 
     public Goal saveGoal(Goal goal) {
-        if (goal.getGoal_id() == -1) {
+        if (goal.getGoal_id() == -1 || goal.getGoal_id() == 0) {
             goals.add(goal);
         } else {
             deleteById(goal.getGoal_id());

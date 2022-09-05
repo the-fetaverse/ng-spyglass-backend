@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -17,7 +19,7 @@ public class GoalController {
     @Autowired
     private GoalService service;
 
-    @GetMapping()
+    @GetMapping
     public List<Goal> findAll(@PathVariable String username) {
         return service.findAll();
     }
@@ -28,8 +30,14 @@ public class GoalController {
     }
 
     @PostMapping
-    public Goal createGoal(@PathVariable String username, @RequestBody Goal goal) {
-        return null;
+    public ResponseEntity<Void> createGoal(@PathVariable String username, @RequestBody Goal goal) {
+        Goal newGoal = service.saveGoal(goal);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newGoal.getGoal_id())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
