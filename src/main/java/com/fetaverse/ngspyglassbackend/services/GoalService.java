@@ -1,67 +1,42 @@
 package com.fetaverse.ngspyglassbackend.services;
 
 import com.fetaverse.ngspyglassbackend.models.Goal;
+import com.fetaverse.ngspyglassbackend.repositories.GoalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 @Service
 public class GoalService {
-    private static ArrayList<Goal> goals = new ArrayList<>();
 
-    static {
-        goals.add(new Goal(1,
-                "PS5",
-                "Saving for a new playstation 5",
-                "dmjohnspor@gmail.com",
-                new Date(),
-                new Date(),
-                0,
-                500.00,
-                false)
-        );
-        goals.add(new Goal(2,
-                "Trip to Spain",
-                "Summer trip to Spain",
-                "dmjohnspor@gmail.com",
-                new Date(),
-                new Date(),
-                0,
-                2500.00,
-                false)
-        );
-    }
+    @Autowired
+    private GoalRepository repository;
 
-    public ArrayList<Goal> findAll() {
-        return goals;
+    public List<Goal> findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     public Goal findById(int id) {
-        for (Goal goal: goals ) {
-            if (goal.getGoal_id() == id) {
-                return goal;
-            }
-        }
-        return null;
+        return repository.findById(id).get();
     }
 
     public Goal saveGoal(Goal goal) {
         if (goal.getGoal_id() == -1 || goal.getGoal_id() == 0) {
-            goals.add(goal);
+            repository.save(goal);
         } else {
             deleteById(goal.getGoal_id());
-            goals.add(goal);
+            repository.save(goal);
         }
         return goal;
     }
 
-    public Goal deleteById(int id) {
-        Goal goal = findById(id);
-        if (goal==null) return null;
-        if(goals.remove(goal)) {
-            return goal;
-        }
-        return null;
+    public Goal updateGoal(Goal goal) {
+        return repository.save(goal);
+    }
+
+    public void deleteById(int id) {
+        repository.deleteById(id);
     }
 }
