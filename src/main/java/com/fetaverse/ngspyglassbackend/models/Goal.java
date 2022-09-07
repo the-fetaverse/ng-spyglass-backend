@@ -25,10 +25,10 @@ public class Goal {
     private String username;
 
     @Column
-    private Date date_created;
+    private String date_created;
 
     @Column
-    private Date date_target;
+    private String date_target;
 
     @Column
     private double amount_current;
@@ -59,7 +59,7 @@ public class Goal {
      * @param amount_target: double
      * @param flag_achieved: boolean
      */
-    public Goal(int goal_id, String name, String description, String username, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
+    public Goal(int goal_id, String name, String description, String username, String date_created, String date_target, double amount_current, double amount_target, boolean flag_achieved) {
         this.goal_id = goal_id;
         this.name = name;
         this.description = description;
@@ -82,7 +82,7 @@ public class Goal {
      * @param amount_target: double
      * @param flag_achieved: boolean
      */
-    public Goal(String name, String description, String username, Date date_created, Date date_target, double amount_current, double amount_target, boolean flag_achieved) {
+    public Goal(String name, String description, String username, String date_created, String date_target, double amount_current, double amount_target, boolean flag_achieved) {
         this.name = name;
         this.description = description;
         this.username = username;
@@ -132,7 +132,7 @@ public class Goal {
      * Gets date created:
      * @return Date date_created
      */
-    public Date getDate_created() {
+    public String getDate_created() {
         return date_created;
     }
 
@@ -140,7 +140,7 @@ public class Goal {
      * Gets target date:
      * @return Date date_target
      */
-    public Date getDate_target() {
+    public String getDate_target() {
         return date_target;
     }
 
@@ -206,7 +206,7 @@ public class Goal {
      * Sets the date the goal was created:
      * @param date_created: Date
      */
-    public void setDate_created(Date date_created) {
+    public void setDate_created(String date_created) {
         this.date_created = date_created;
     }
 
@@ -214,7 +214,7 @@ public class Goal {
      * Sets the target date for the goal:
      * @param date_target: Date
      */
-    public void setDate_target(Date date_target) {
+    public void setDate_target(String date_target) {
         this.date_target = date_target;
     }
 
